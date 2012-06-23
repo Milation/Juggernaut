@@ -39,10 +39,10 @@ public:
 			for (int i = 0; i < slotVector.size(); i++) {
 				if (i == 3 || i == 18)
 					continue;
-				Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, slots[i]);
+				Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, slotVector[i]);
 				if (item) {
 					numItems++;
-					available[i] = slots[i];
+					available[i] = slotVector[i];
 				}
 			}
 			numItems = numItems > 4 ? 5 : numItems;
@@ -61,19 +61,21 @@ public:
 					}
 				}
 				if (!ContainsValue(randomSlots, slot))
-					randomSlots[i] = slots[slot];
+					randomSlots[i] = slotVector[slot];
 				else {
 					while (ContainsValue(randomSlots, slot))
 						slot = urand(0, 18);
 
-					randomSlots[i] = slots[slot];
+					randomSlots[i] = slotVector[slot];
 				}
 			}
 
 			// Remove/add items from the two people
 			for (int i = 0; i < numItems; i++) {
 				Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, randomSlots[i]);
-				Killed->RemoveItem(INVENTORY_SLOT_BAG_0, randomSlots[i], true);
+				if (!item)
+					continue;
+				Killed->DestroyItem(INVENTORY_SLOT_BAG_0, randomSlots[i], true);
 				Killer->AddItem(item->GetEntry(), 1);
 			}
 		}
