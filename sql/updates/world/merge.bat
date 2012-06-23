@@ -1,0 +1,1 @@
+COPY *.sql Merged.sql
