@@ -867,6 +867,8 @@ Player::Player(WorldSession* session): Unit(true), m_achievementMgr(this), m_rep
 
 	m_hardcore_mode = 0;
 
+	m_insurance = 0;
+
     SetPendingBind(0, 0);
 }
 
@@ -1011,6 +1013,7 @@ bool Player::Create(uint32 guidlow, CharacterCreateInfo* createInfo)
 	m_killstreak = 0;
 	m_highest_killstreak = 0;
 	m_hardcore_mode = 0;
+	m_insurance = 0;
 
     // set starting level
     uint32 start_level = getClass() != CLASS_DEATH_KNIGHT
@@ -17413,6 +17416,7 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
 
 	SetKillstreak(fields[67].GetUInt32());
 	SetHighestKillstreak(fields[68].GetUInt32());
+	SetInsurance(fields[69].GetUInt8());
 
     _LoadDeclinedNames(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADDECLINEDNAMES));
 
@@ -18825,6 +18829,7 @@ void Player::SaveToDB(bool create /*=false*/)
         stmt->setUInt32(index++, m_grantableLevels);
 		stmt->setUInt32(index++, GetKillstreak());
 		stmt->setUInt32(index++, GetHighestKillstreak());
+		stmt->setUInt8(index++, GetInsurance());
     }
     else
     {
@@ -18938,6 +18943,7 @@ void Player::SaveToDB(bool create /*=false*/)
         stmt->setUInt32(index++, m_grantableLevels);
 		stmt->setUInt32(index++, GetKillstreak());
 		stmt->setUInt32(index++, GetHighestKillstreak());
+		stmt->setUInt8(index++, GetInsurance());
 
         stmt->setUInt8(index++, IsInWorld() ? 1 : 0);
         // Index

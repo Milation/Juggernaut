@@ -857,7 +857,8 @@ class ObjectMgr
         void LoadEquipmentTemplates();
         void LoadGameObjectLocales();
         void LoadGameobjects();
-        void LoadItemTemplates();
+        void LoadItemTemplate(uint32 entry);
+		void LoadItemTemplates();
         void LoadItemLocales();
         void LoadItemSetNames();
         void LoadItemSetNameLocales();

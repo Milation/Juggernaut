@@ -14,6 +14,7 @@ set(scripts_STAT_SRCS
   Custom/Teleporter.cpp
   Custom/HardcoreSystem.cpp
   Custom/cs_hardcore.cpp
+  Custom/cs_insurance.cpp
 )
 
 message("  -> Prepared: Custom")

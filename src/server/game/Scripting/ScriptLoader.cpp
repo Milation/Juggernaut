@@ -1230,6 +1230,7 @@ void AddBattlegroundScripts()
 	void AddSC_Teleporter();
 	void AddSC_HardcoreSystem();
 	void AddSC_cs_hardcore();
+	void AddSC_cs_insurance();
 #endif
 
 void AddCustomScripts()
@@ -1240,5 +1241,6 @@ void AddCustomScripts()
 	AddSC_Teleporter();
 	AddSC_HardcoreSystem();
 	AddSC_cs_hardcore();
+	AddSC_cs_insurance();
 #endif
 }

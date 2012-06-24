@@ -1549,6 +1549,8 @@ class Player : public Unit, public GridObject<Player>
 		bool isHardcoreEnabled() const { return m_hardcore_mode == 0 ? false : true; }
 		void EnableHardcore() { m_hardcore_mode = 1; }
 		void DisableHardcore() { m_hardcore_mode = 0; }
+		uint8 GetInsurance() const { return m_insurance; }
+		void SetInsurance(uint8 value) { m_insurance = value; }
 
         uint32 GetMoney() const { return GetUInt32Value(PLAYER_FIELD_COINAGE); }
         void ModifyMoney(int32 d);
@@ -2801,6 +2803,7 @@ class Player : public Unit, public GridObject<Player>
 		uint32 m_killstreak;
 		uint32 m_highest_killstreak;
 		uint8  m_hardcore_mode;
+		uint8  m_insurance;
 
     private:
         // internal common parts for CanStore/StoreItem functions
