@@ -17417,6 +17417,7 @@ bool Player::LoadFromDB(uint32 guid, SQLQueryHolder *holder)
 	SetKillstreak(fields[67].GetUInt32());
 	SetHighestKillstreak(fields[68].GetUInt32());
 	SetInsurance(fields[69].GetUInt8());
+	fields[70].GetUInt8() == 0 ? DisableHardcore() : EnableHardcore();
 
     _LoadDeclinedNames(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADDECLINEDNAMES));
 
@@ -18830,6 +18831,7 @@ void Player::SaveToDB(bool create /*=false*/)
 		stmt->setUInt32(index++, GetKillstreak());
 		stmt->setUInt32(index++, GetHighestKillstreak());
 		stmt->setUInt8(index++, GetInsurance());
+		stmt->setUInt8(index++, isHardcoreEnabled() ? 1 : 0);
     }
     else
     {
@@ -18944,6 +18946,7 @@ void Player::SaveToDB(bool create /*=false*/)
 		stmt->setUInt32(index++, GetKillstreak());
 		stmt->setUInt32(index++, GetHighestKillstreak());
 		stmt->setUInt8(index++, GetInsurance());
+		stmt->setUInt8(index++, isHardcoreEnabled() ? 1 : 0);
 
         stmt->setUInt8(index++, IsInWorld() ? 1 : 0);
         // Index

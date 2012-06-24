@@ -15,6 +15,8 @@ set(scripts_STAT_SRCS
   Custom/HardcoreSystem.cpp
   Custom/cs_hardcore.cpp
   Custom/cs_insurance.cpp
+  Custom/insurance_npc.cpp
+  Custom/hardcore_npc.cpp
 )
 
 message("  -> Prepared: Custom")

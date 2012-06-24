@@ -14,9 +14,26 @@ class HardcoreSystem : public PlayerScript
 public:
 	HardcoreSystem() : PlayerScript("HardcoreSystem") { }
 
+	uint64 guid;
+
+	void OnCreate(Player * player) {
+		guid = player->GetGUID();
+	}
+
+	void OnLogin(Player * player) {
+		if (player->GetGUID() == guid)
+		{
+			player->TeleportTo(1, 16216.79f, 16403.23f, -64.8f, 0.029792f);
+		}
+	}
+
     void OnPVPKill(Player *Killer, Player *Killed) 
 	{
 		if (Killer->GetGUID() == Killed->GetGUID())
+			return;
+
+		// Disable in battlegrounds
+		if (Killer->InBattleground() || Killed->InBattleground() || Killer->InArena() || Killed->InArena())
 			return;
 
 		// Don't allow this system for gamemasters
@@ -24,6 +41,8 @@ public:
 			return;
 
 		if (Killer->isHardcoreEnabled() && Killed->isHardcoreEnabled()) {
+
+			int insurance = Killed->GetInsurance();
 
 			int slots[] = { EQUIPMENT_SLOT_HEAD, EQUIPMENT_SLOT_NECK, EQUIPMENT_SLOT_SHOULDERS, EQUIPMENT_SLOT_BODY,
 				EQUIPMENT_SLOT_CHEST, EQUIPMENT_SLOT_WAIST, EQUIPMENT_SLOT_LEGS, EQUIPMENT_SLOT_FEET, EQUIPMENT_SLOT_HANDS, 
@@ -45,7 +64,8 @@ public:
 					available[i] = slotVector[i];
 				}
 			}
-			numItems = numItems > 4 ? 5 : numItems;
+			numItems = numItems > 4 ? (5 - insurance) : (numItems - insurance);
+			numItems = numItems < 0 ? 0 : numItems;
 
 			// Generate 5 random slots
 			for (int i = 0; i < numItems; i++) {
@@ -78,12 +98,12 @@ public:
 				Killed->DestroyItem(INVENTORY_SLOT_BAG_0, randomSlots[i], true);
 				Killer->AddItem(item->GetEntry(), 1);
 			}
-		}
-	}
 
-	// Disable hardecore whenever somebody logs in
-	void OnLogin(Player * player) {
-		player->DisableHardcore();
+			if (insurance > 0) {
+				ChatHandler(Killed).PSendSysMessage("Your insurance plan saved you %d item(s). Your insurance is now void, but you may purchase it again.", insurance);
+				Killed->SetInsurance(0);
+			}
+		}
 	}
 
 };

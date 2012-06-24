@@ -3295,7 +3295,7 @@ enum BanReturn
 enum BattlegroundTypeId
 {
     BATTLEGROUND_TYPE_NONE     = 0, // None
-    BATTLEGROUND_AV            = 1, // Alterac Valley
+    BATTLEGROUND_AV            = 0, // Alterac Valley
     BATTLEGROUND_WS            = 2, // Warsong Gulch
     BATTLEGROUND_AB            = 3, // Arathi Basin
     BATTLEGROUND_NA            = 4, // Nagrand Arena

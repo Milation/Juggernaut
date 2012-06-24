@@ -1231,6 +1231,8 @@ void AddBattlegroundScripts()
 	void AddSC_HardcoreSystem();
 	void AddSC_cs_hardcore();
 	void AddSC_cs_insurance();
+	void AddSC_insurance_npc();
+	void AddSC_hardcore_npc();
 #endif
 
 void AddCustomScripts()
@@ -1242,5 +1244,7 @@ void AddCustomScripts()
 	AddSC_HardcoreSystem();
 	AddSC_cs_hardcore();
 	AddSC_cs_insurance();
+	AddSC_insurance_npc();
+	AddSC_hardcore_npc();
 #endif
 }

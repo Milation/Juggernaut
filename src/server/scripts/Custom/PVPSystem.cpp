@@ -30,8 +30,8 @@ public:
 	else
 	{
 		// Give gold for PVP kill
-		Killer->ModifyMoney(1000); //1g (100*100*1)
-		ChatHandler(Killer).PSendSysMessage("Good job, %s! You received 10 silver from killing %s.", Killer->GetName(), Killed->GetName());
+		Killer->ModifyMoney(1500); //1g (100*100*1)
+		ChatHandler(Killer).PSendSysMessage("Good job, %s! You received 15 silver from killing %s.", Killer->GetName(), Killed->GetName());
 		ChatHandler(Killer).PSendSysMessage("Current Kills: %u.", Killer->GetKillstreak());
 		
 		//REWARD ON ASSIST
@@ -47,20 +47,19 @@ public:
 				if (0 > distance || distance > PVPSYSTEM_ASSIST_RANGE)
 					continue;
 
-				plrAssist->ModifyMoney(1000);
-				ChatHandler(plrAssist).PSendSysMessage("Good job! You received 10 silver for assist in killing %s.", Killed->GetName());
+				plrAssist->ModifyMoney(750);
+				ChatHandler(plrAssist).PSendSysMessage("Good job! You received 7 silver for assist in killing %s.", Killed->GetName());
 			}
 		}
 
 		// Lose gold for being Killed
 		// I got no gold biatchh!
-		if (Killed->GetMoney() < 1000)
+		if (Killed->GetMoney() < 1500)
 			return;
 		else
 		{
-			Killed->ModifyMoney(-10000);
+			Killed->ModifyMoney(-1000);
 		    ChatHandler(Killed).PSendSysMessage("Sorry, %s. You have lost 10 silver for being Killed and your kills have been reset.", Killed->GetName());
-			Killed->SetKillstreak(0);
 		}
 	}
 

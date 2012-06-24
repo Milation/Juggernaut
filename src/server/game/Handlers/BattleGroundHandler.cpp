@@ -105,8 +105,8 @@ void WorldSession::HandleBattlemasterJoinOpcode(WorldPacket & recv_data)
     BattlegroundQueueTypeId bgQueueTypeIdRandom = BattlegroundMgr::BGQueueTypeId(BATTLEGROUND_RB, 0);
 
     // ignore if player is already in BG
-    if (_player->InBattleground())
-        return;
+    //if (_player->InBattleground())
+        //return;
 
     // get bg instance or bg template if instance not found
     Battleground* bg = NULL;

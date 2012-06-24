@@ -2136,7 +2136,8 @@ class Player : public Unit, public GridObject<Player>
         /***               BATTLEGROUND SYSTEM                 ***/
         /*********************************************************/
 
-        bool InBattleground()       const                { return m_bgData.bgInstanceID != 0; }
+        //bool InBattleground()       const                { return m_bgData.bgInstanceID != 0; }
+		bool InBattleground()		const				 { return m_bgData.bgTypeID != 0; }
         bool InArena()              const;
         uint32 GetBattlegroundId()  const                { return m_bgData.bgInstanceID; }
         BattlegroundTypeId GetBattlegroundTypeId() const { return m_bgData.bgTypeID; }
