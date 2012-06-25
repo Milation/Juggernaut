@@ -9,6 +9,29 @@ bool ContainsValue(std::vector<int> vec, int value) {
 	return false;
 }
 
+std::vector<int> Sort(std::vector<int> w)
+{   
+	int temp;
+    bool finished = false;
+
+	while (!finished)
+    {
+		finished = true;
+		for (int i = 0; i < w.size()-1; i++) 
+		{
+			if (w[i] > w[i+1]) {
+				temp = w[i];
+				w[i] = w[i+1];
+				w[i+1] = temp;
+
+				finished=false;
+			}
+        }
+
+	}
+	return w;
+}
+
 class HardcoreSystem : public PlayerScript
 {
 public:
@@ -68,8 +91,7 @@ public:
 					available[i] = slotVector[i];
 				}
 			}
-			numItems = numItems > 4 ? (5 - insurance) : (numItems - insurance);
-			numItems = numItems < 0 ? 0 : numItems;
+			numItems = numItems > 4 ? 5 : numItems;
 
 			// Generate 5 random slots
 			for (int i = 0; i < numItems; i++) {
@@ -94,13 +116,51 @@ public:
 				}
 			}
 
-			// Remove/add items from the two people
-			for (int i = 0; i < numItems; i++) {
-				Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, randomSlots[i]);
-				if (!item)
-					continue;
-				Killed->DestroyItem(INVENTORY_SLOT_BAG_0, randomSlots[i], true);
-				Killer->AddItem(item->GetEntry(), 1);
+			if (insurance == 0) {
+				// Remove/add items from the two people
+				for (int i = 0; i < numItems; i++) {
+					Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, randomSlots[i]);
+					if (!item)
+						continue;
+					Killed->DestroyItem(INVENTORY_SLOT_BAG_0, randomSlots[i], true);
+					Killer->AddItem(item->GetEntry(), 1);
+				}
+			}
+			else {
+				std::vector<int> items(5, -1);
+				Item * item;
+
+				for (int i = 0; i < 5; i++) {
+					item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, randomSlots[i]);
+					items[i] = item->GetTemplate()->ItemLevel;
+				}
+
+				items = Sort(items);
+				for (int i = 0; i < insurance; i++)
+					items.pop_back();
+
+				// Remove/add items from the two people
+				bool deleted = false;
+				for (int i = 0; i < numItems; i++) {
+					Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, randomSlots[i]);
+					if (!item)
+						continue;
+					for (int j = 0; j < items.size(); j++) {
+						if (items[items.size() - 1] == item->GetTemplate()->ItemLevel) {
+							deleted = true;
+							items.pop_back();
+							break;
+						}
+					}
+
+					// Valid item, delete it and give to other player
+					if (!deleted) {
+						Killed->DestroyItem(INVENTORY_SLOT_BAG_0, randomSlots[i], true);
+						Killer->AddItem(item->GetEntry(), 1);
+					}
+
+					deleted = false;
+				}
 			}
 
 			if (insurance > 0) {
