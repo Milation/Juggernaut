@@ -6,11 +6,8 @@ class cs_insurance : public CommandScript
     public:
         cs_insurance() : CommandScript("cs_insurance") { }
 
-		static bool HandleInsuranceCommand(ChatHandler* handler, const char* args)
-        {
-			if (!*args)
-				return false;
-				
+		static bool HandleInsuranceCommand(ChatHandler* handler, /*const char* args*/)
+        {				
             Player * player = handler->GetSession()->GetPlayer();
 			
 			switch(player->GetInsurance()) {
