@@ -10,7 +10,7 @@ class hardcore_npc : public CreatureScript
 		player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "I want to play on hardcore mode.", GOSSIP_SENDER_MAIN, 1000);
 		player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "I want to play on normal mode.", GOSSIP_SENDER_MAIN, 1001);
 
-		player->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+		player->SEND_GOSSIP_MENU(56000, creature->GetGUID());
 
 		return true;
 	}

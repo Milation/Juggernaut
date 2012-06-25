@@ -17,7 +17,7 @@ class insurance_npc : public CreatureScript
 		player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "I would like to purchase the premium insurance plan.", GOSSIP_SENDER_MAIN, 1002);
 		player->ADD_GOSSIP_ITEM(GOSSIP_ICON_DOT, "Nevermind.", GOSSIP_SENDER_MAIN, 1003);
 
-		player->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+		player->SEND_GOSSIP_MENU(56001, creature->GetGUID());
 
 		return true;
 	}
