@@ -23,7 +23,7 @@ public:
 	void OnLogin(Player * player) {
 		if (player->GetGUID() == guid)
 		{
-			player->TeleportTo(1, 16216.79f, 16403.23f, -64.8f, 0.029792f);
+			player->TeleportTo(1, 16216.79f, 16403.23f, -65.5f, 0.029792f);
 		}
 	}
 

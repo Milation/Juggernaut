@@ -33,7 +33,7 @@ class hardcore_npc : public CreatureScript
 			break;
 		}
 
-		if (player->getFaction() == HORDE)
+		if (player->GetTeam() == HORDE)
 			player->TeleportTo(30, -1255.04f, -646.09f, 53.01f, 0.796373f);
 		else
 			player->TeleportTo(30, 408.678f, -542.661f, 69.5f, 1.3328f);
