@@ -24,6 +24,10 @@ public:
 		if (player->GetGUID() == guid)
 		{
 			player->TeleportTo(1, 16216.79f, 16403.23f, -65.5f, 0.029792f);
+			player->learnSpell(33389, false);
+			player->learnSpell(33392, false);
+			player->learnSpell(34092, false);
+			player->learnSpell(34093, false);
 		}
 	}
 
