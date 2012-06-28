@@ -17,6 +17,8 @@ set(scripts_STAT_SRCS
   Custom/cs_insurance.cpp
   Custom/insurance_npc.cpp
   Custom/hardcore_npc.cpp
+  Custom/boss_cave.cpp
+  Custom/npc_enchantment.cpp
 )
 
 message("  -> Prepared: Custom")

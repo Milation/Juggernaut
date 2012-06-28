@@ -1233,6 +1233,8 @@ void AddBattlegroundScripts()
 	void AddSC_cs_insurance();
 	void AddSC_insurance_npc();
 	void AddSC_hardcore_npc();
+	void AddSC_boss_cave();
+	void AddSC_npc_enchantment();
 #endif
 
 void AddCustomScripts()
@@ -1246,5 +1248,7 @@ void AddCustomScripts()
 	AddSC_cs_insurance();
 	AddSC_insurance_npc();
 	AddSC_hardcore_npc();
+	AddSC_boss_cave();
+	AddSC_npc_enchantment();
 #endif
 }
