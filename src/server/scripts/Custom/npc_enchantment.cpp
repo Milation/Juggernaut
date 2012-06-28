@@ -171,7 +171,7 @@ public:
             if (player->HasSkill(SKILL_ENCHANTING) && player->GetSkillValue(SKILL_ENCHANTING) == 450)
                 player->ADD_GOSSIP_ITEM(1, "[Enchant Rings]", GOSSIP_SENDER_MAIN, 12);
 
-            player->PlayerTalkClass->SendGossipMenu(100001, creature->GetGUID());
+            player->SEND_GOSSIP_MENU(100001, creature->GetGUID());
 			return true;
 		}
  

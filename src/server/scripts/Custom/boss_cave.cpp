@@ -9,6 +9,12 @@ enum Spells {
 	SPELL_BLESSING_OF_ADAL	= 35076
 };
 
+static Position teleLocs[] =  {
+	{ -872.066406f,  -93.692444f, 67.240044f, 0.106026f },
+	{ -872.253784f, -105.931076f, 65.035637f, 0.510508f },
+	{ -853.744629f, -114.451241f, 63.935654f, 1.452986f }
+};
+
 class boss_cave : public CreatureScript
 {
     public:
@@ -92,7 +98,8 @@ class boss_cave : public CreatureScript
 				}
 
 				if (phase == 2 && teleport_timer <= diff) {
-					DoTeleportAll(0.0f, 0.0f, 0.0f, 0.0f);
+					uint8 pos = urand(0, 2);
+					DoTeleportAll(teleLocs[pos].m_positionX, teleLocs[pos].m_positionY, teleLocs[pos].m_positionZ, teleLocs[pos].m_orientation);
 					DoCast(SelectTarget(SELECT_TARGET_RANDOM, 1, 50, true), SPELL_POISON_CLOUD);
 				} else teleport_timer -= diff;
 
