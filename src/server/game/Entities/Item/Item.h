@@ -215,6 +215,9 @@ class Item : public Object
 
         virtual bool Create(uint32 guidlow, uint32 itemid, Player const* owner);
 
+		// Custom
+		uint32 Compare(Item * pItem) const;
+
         ItemTemplate const* GetTemplate() const;
 
         uint64 GetOwnerGUID()    const { return GetUInt64Value(ITEM_FIELD_OWNER); }

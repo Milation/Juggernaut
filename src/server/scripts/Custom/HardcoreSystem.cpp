@@ -9,6 +9,25 @@ bool ContainsValue(std::vector<int> vec, int value) {
 	return false;
 }
 
+std::vector<Item*> Sort(std::vector<Item*> vec) {
+	for (int i = 1; i < vec.size(); i++)
+      {
+         Item* key = vec[i];
+         int position = i;
+
+         //  Shift larger values to the left
+         while (position > 0 && key->Compare(vec[position-1]) > 0)
+         {
+            vec[position] = vec[position-1];
+            position--;
+         }
+            
+         vec[position] = key;
+      }
+
+	return vec;
+}
+
 std::vector<int> Sort(std::vector<int> w)
 {   
 	int temp;
@@ -78,11 +97,37 @@ public:
 				EQUIPMENT_SLOT_RANGED, EQUIPMENT_SLOT_TABARD };
 
 			std::vector<int> slotVector (slots, slots + sizeof(slots)/sizeof(int));
-			std::vector<int> available (19, -1);
-			std::vector<int> randomSlots (5, -1);
-			int numItems = 0;
-
+			//std::vector<int> available (19, -1);
+			//std::vector<int> randomSlots (5, -1);
+			std::vector<Item*> items;
+			
+			int loop = 0;
 			for (int i = 0; i < slotVector.size(); i++) {
+				if (i == 3 || i == 18)
+					continue;
+				Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, slotVector[i]);
+				if (item) {
+					items[loop] = item;
+					loop++;
+				}
+			}
+
+			items = Sort(items);
+			int numItems = items.size() > 4 ? 5 : items.size();
+
+			if (numItems < 5) {
+				ChatHandler(Killer).PSendSysMessage("Your opponent had less than 5 pieces of gear equipped, so nothing was gained or lost.");
+				ChatHandler(Killer).PSendSysMessage("You were wearing less than 5 pieces of gear, so nothing was lost.");
+				return;
+			}
+
+			for (int i = 0; i < numItems - insurance; i++) {
+				Item * item = items[urand(insurance, numItems)];
+				Killed->DestroyItem(INVENTORY_SLOT_BAG_0, item->GetSlot(), true);
+				Killer->AddItem(item->GetEntry(), 1);
+			}
+
+/*			for (int i = 0; i < slotVector.size(); i++) {
 				if (i == 3 || i == 18)
 					continue;
 				Item * item = Killed->GetItemByPos(INVENTORY_SLOT_BAG_0, slotVector[i]);
@@ -162,7 +207,7 @@ public:
 					deleted = false;
 				}
 			}
-
+*/
 			if (insurance > 0) {
 				ChatHandler(Killed).PSendSysMessage("Your insurance plan saved you %d item(s). Your insurance is now void, but you may purchase it again.", insurance);
 				Killed->SetInsurance(0);

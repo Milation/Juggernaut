@@ -1196,3 +1196,12 @@ bool Item::CheckSoulboundTradeExpire()
 
     return false;
 }
+
+uint32 Item::Compare(Item * pItem) const {
+	if (this->GetTemplate()->ItemLevel > pItem->GetTemplate()->ItemLevel)
+		return 1;
+	else if (this->GetTemplate()->ItemLevel < pItem->GetTemplate()->ItemLevel)
+		return -1;
+	else
+		return 0;
+}
